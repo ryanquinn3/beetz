@@ -1,0 +1,38 @@
+<div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+
+          <div class="center brand-logo">
+
+              <div class="center player-display">
+                  <ul class="center">
+                      <li>
+                          <i ng-if="pc.nowPlaying.title"
+                            ng-click="pc.stop()"
+                            class="small material-icons pointer">stop</i>
+                      </li>
+                      <li>
+                        <i ng-if="pc.nowPlaying.title"
+                           ng-click="pc.play()"
+                           class="small material-icons pointer">play_arrow</i>
+                      </li>
+                      <li>
+                        ((pc.nowPlaying.title || 'Click a Track'))
+                      </li>
+                      <li ng-if="pc.player">
+                          (( pc.player.currentTime() ))
+                      </li>
+
+                  </ul>
+
+              </div>
+
+          </div>
+
+        <ul class="right hide-on-med-and-down">
+          <li><a>Visuals</a></li>
+          <li><a>Profile</a></li>
+        </ul>
+      </div>
+    </nav>
+</div>

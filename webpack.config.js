@@ -2,6 +2,7 @@ var _ = require('underscore');
 var path = require('path');
 var fs = require('fs');
 var webpack = require('webpack');
+var glob = require('glob');
 
 var nodeModules = {};
 
@@ -9,50 +10,103 @@ fs.readdirSync('node_modules')
   .filter(x => ['.bin'].indexOf(x) === -1)
   .forEach((mod) => nodeModules[mod] = 'commonjs ' + mod);
 
-function pathTo() {
-    return path.join(__dirname, path.join.apply(path, arguments));
+var frontendConfig = {
+    entry: [
+        path.join(__dirname, 'src','public', 'app', 'index.js')
+    ],
+    output: {
+        path: path.join(__dirname, 'src', 'public', 'build'),
+        fileName: 'bundle.js'
+    },
+    plugins: [
+        new webpack.ProvidePlugin({
+            riot: 'riot'
+        })
+    ]
+};
+
+var backendConfig = {
+    node: {
+        __filename: true,
+        __dirname: true
+    },
+    target: 'node',
+    entry: './src/boot.js',
+    output: {
+        path: path.join(__dirname, 'build'),
+        filename: 'app.js'
+    },
+    resolve: {
+        moduleDirectories: [
+            path.join(__dirname, 'node_modules'),
+            path.join(__dirname, 'src'),
+        ],
+        alias: {
+            models: pathToSrc('models'),
+            db: pathToSrc('db'),
+            middleware: pathToSrc('middleware')
+        }
+    },
+    externals: nodeModules,
+    plugins: [
+      new webpack.BannerPlugin('require("source-map-support").install();',
+                               { raw: true, entryOnly: false })
+    ]
+};
+
+var testConfig = {
+    entry: glob.sync('**/*-spec.js'),
+    debug: true,
+    devtool: 'inline-source-map',
+    node: {
+        fs: 'empty'
+    },
+    resolve: {
+        root: [
+            path.resolve(__dirname)
+        ]
+    }
+};
+
+
+function pathToSrc(folder){
+    return path.join(__dirname, 'src', folder);
 }
 
-function pathToSrc(){
-    return pathTo('src');
-}
-
-module.exports = (options) => {
-    var config = {
-        entry: './src/boot.js',
-        target: 'node',
-        output: {
-            path: path.join(__dirname, 'build'),
-            filename: 'app.js'
-        },
-        node: {
-            __filename: true,
-            __dirname: true
-        },
-        resolve:{
-            extensions: [ '', '.js'],
-            alias: {
-                middleware: pathToSrc('middleware')
-            }
-        },
+function create(options) {
+    var defaultConfig = {
+        devtool: 'source-map',
         module: {
             loaders: [
                 {
-                    test: /\.js$/,
+                    test: /\.js$|\.tag$/,
                     loader: 'babel',
-                    exclude: path.join( __dirname, 'node_modules' ),
+                    exclude: path.join(__dirname, 'node_modules'),
                     query: {
                         presets: ['es2015']
                     }
+                },
+                { test: /\.css$/, loader: 'style!css'},
+                { test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
+                { test: /\.html$/, loader: 'raw' },
+                { test: /\.(ttf|otf|eot|svg|woff(2)?)$/, loader: 'file-loader' }
+
+            ],
+            preLoaders: [
+                {
+                    test: /\.tag$/,
+                    exclude: path.join(__dirname, 'node_modules'),
+                    loader: 'riotjs-loader',
+                    query: {type: 'none'}
                 }
             ]
-        },
-        externals: nodeModules,
-        plugins: [
-          new webpack.BannerPlugin('require("source-map-support").install();',
-                                   { raw: true, entryOnly: false })
-        ]
+        }
     };
+    return _(defaultConfig).extend(options);
+}
 
-    return _(config).extend(options);
+module.exports = {
+    backend: create(backendConfig),
+    frontend: create(frontendConfig),
+    testing: create(testConfig)
 };

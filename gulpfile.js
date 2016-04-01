@@ -1,32 +1,28 @@
-var gulp = require( 'gulp' );
-var webpack = require( 'webpack' );
-var nodemon = require('nodemon');
+'use strict';
+let gulp = require( 'gulp' );
+let webpack = require( 'webpack' );
+let nodemon = require('nodemon');
+let devWebpackConfig = require( './webpack.dev.js' );
 
+gulp.task('frontend-build', webpackRun(devWebpackConfig.frontend));
+gulp.task('backend-build', webpackRun(devWebpackConfig.backend));
 
-var devWebpackConfig = require( './webpack.dev.js' );
+gulp.task('backend-watch', webpackWatch(devWebpackConfig.backend));
+gulp.task('frontend-watch', webpackWatch(devWebpackConfig.frontend))
 
-gulp.task('build', function(done){
-    webpack(devWebpackConfig).run(onBuild(done));
-});
-
-gulp.task('watch', function(done){
-    return webpack(devWebpackConfig).watch(250, function(err, stats){
-        onBuild()(err, stats);
-        nodemon.restart();
-    });
-});
-
-gulp.task('run', ['watch'], function(){
+gulp.task('run', ['backend-watch', 'frontend-watch'], () =>{
     nodemon({
         execMap: {
             js: 'node'
         },
-        script: path.join(__dirname, 'build/app.js'),
+        script: 'build/app.js',
         ignore: ['*'],
-        watch: ['build'],
+        watch: [],
         ext: 'noop'
+    }).on('start',function(){
+        console.log('Watching files');
     }).on('restart', function(){
-        console.log('-- NodeMon Restart --');
+        console.log('-- Nodemon Restart --');
     })
 });
 
@@ -44,4 +40,25 @@ function onBuild( done ) {
             done();
         }
     };
+}
+
+function webpackWatch(config) {
+    return function (done) {
+        var fired = false;
+        webpack(config).watch({
+            aggregateTimeout: 250
+        }, function (err, stats) {
+            if (!fired) {
+                fired = true;
+                onBuild(done)(err, stats);
+            }
+            nodemon.restart();
+        });
+    }
+}
+
+function webpackRun(config){
+    return function (done){
+        webpack(config).run(onBuild(done));
+    }
 }
