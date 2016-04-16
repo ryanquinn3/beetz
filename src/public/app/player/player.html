@@ -1,26 +1,24 @@
 <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
-
           <div class="center brand-logo">
-
               <div class="center player-display">
                   <ul class="center">
                       <li>
-                          <i ng-if="pc.nowPlaying.title"
-                            ng-click="pc.stop()"
+                          <i *ngIf="nowPlaying.title"
+                            (click)="stop()"
                             class="small material-icons pointer">stop</i>
                       </li>
                       <li>
-                        <i ng-if="pc.nowPlaying.title"
-                           ng-click="pc.play()"
+                        <i *ngIf="nowPlaying.title"
+                           (click)="play()"
                            class="small material-icons pointer">play_arrow</i>
                       </li>
                       <li>
-                        ((pc.nowPlaying.title || 'Click a Track'))
+                        {{ nowPlaying.title || 'Click a Track' }}
                       </li>
-                      <li ng-if="pc.player">
-                          (( pc.player.currentTime() ))
+                      <li *ngIf="player">
+                          {{ pc.player.currentTime() }}
                       </li>
 
                   </ul>

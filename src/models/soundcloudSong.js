@@ -2,11 +2,14 @@ import bookshelf from 'models/base';
 
 
 
-let SoundcloudSong = bookshelf.Model.extend({
+export let SoundcloudSong = bookshelf.Model.extend({
     hasTimestamps: false,
     tableName: 'soundcloudSong'
 }, {
 
 });
 
-export default SoundcloudSong;
+
+export let SoundcloudSongs = bookshelf.Collection.extend({
+   model: SoundcloudSong 
+});

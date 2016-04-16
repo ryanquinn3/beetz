@@ -12,11 +12,14 @@ fs.readdirSync('node_modules')
 
 var frontendConfig = {
     entry: [
-        path.join(__dirname, 'src','public', 'app', 'index.js')
+        path.join(__dirname, 'src','public', 'app', 'index.ts')
     ],
     output: {
         path: path.join(__dirname, 'src', 'public', 'build'),
         fileName: 'bundle.js'
+    },
+    resolve: {
+        extensions: ["", ".webpack.js", ".web.js", ".js", ".ts"]
     },
     plugins: [
         new webpack.ProvidePlugin({
@@ -78,6 +81,10 @@ function create(options) {
         devtool: 'source-map',
         module: {
             loaders: [
+                { test: /\.ts/,
+                    loader:'ts-loader',
+                    exclude: path.join(__dirname, 'node_modules')
+                },
                 {
                     test: /\.js$|\.tag$/,
                     loader: 'babel',

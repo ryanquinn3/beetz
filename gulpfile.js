@@ -8,9 +8,9 @@ gulp.task('frontend-build', webpackRun(devWebpackConfig.frontend));
 gulp.task('backend-build', webpackRun(devWebpackConfig.backend));
 
 gulp.task('backend-watch', webpackWatch(devWebpackConfig.backend));
-gulp.task('frontend-watch', webpackWatch(devWebpackConfig.frontend))
+gulp.task('frontend-watch', webpackWatch(devWebpackConfig.frontend));
 
-gulp.task('run', ['backend-watch', 'frontend-watch'], () =>{
+gulp.task('run', ['backend-watch', 'frontend-watch'], () => {
     nodemon({
         execMap: {
             js: 'node'
