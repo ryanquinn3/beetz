@@ -1,0 +1,10 @@
+#!/bin/sh
+
+linter=`tslint -c tslint.json src/**/*.ts`
+if [ -n "$linter" ]
+then
+    echo "linter found problems"
+    exit 1
+fi
+
+exit 0
