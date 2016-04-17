@@ -1,10 +1,10 @@
-import { Component } from 'angular2/core';
-import lib from './library/library.component';
-import player from './player/player.component.ts';
-import room from './room/room.component';
+import { Component } from "angular2/core";
+import lib from "./library/library.component";
+import player from "./player/player.component.ts";
+import room from "./room/room.component";
 
 @Component({
-    selector: 'app',
+    selector: "app",
     template: ` 
        <div class="row">
          <div class="col s9">
@@ -17,4 +17,4 @@ import room from './room/room.component';
     `,
     directives: [lib, room]
 })
-export default class app {}
+export default class App {}

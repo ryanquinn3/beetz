@@ -1,8 +1,9 @@
-import { Component, ChangeDetectorRef } from 'angular2/core';
-import likes from '../likes.service';
-import scConnect from '../soundcloud/soundcloud.service';
+import { Component, ChangeDetectorRef } from "angular2/core";
+import likes from "../likes.service";
+import scConnect from "../soundcloud/soundcloud.service";
+import {Song} from "../soundcloud/Song";
 
- let template =`
+ let template = `
     <ul class="collection">
         <li class="collection-item"  style="height: 45px;" *ngFor="#like of likedSongs; #i = index">
             <div class="row">
@@ -15,30 +16,30 @@ import scConnect from '../soundcloud/soundcloud.service';
             </div>
         </li>
     </ul>
-`
+`;
 
 @Component({
     template,
-    selector: 'boot',
+    selector: "boot"
 })
-export default class boot {
-    public boy: string  = 'Frank';
+export default class Boot {
+    public boy: string  = "Frank";
     public likedSongs: any[] = [];
-    constructor(private api: likes, private cd: ChangeDetectorRef, private sc: scConnect){
+    constructor(private api: likes, private cd: ChangeDetectorRef, private sc: scConnect) {
         api.getLikes()
             .subscribe(res => {
                 this.likedSongs = res.json();
                 cd.detectChanges();
-            })
+            });
     }
 
 
-    play(song:any) {
+    play(song: Song) {
         console.log(song.title);
         this.sc.clear();
         this.sc.load(song).then(player => {
-            console.log('playing');
-            player.play()
+            console.log("playing");
+            player.play();
         });
     }
 }
