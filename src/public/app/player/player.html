@@ -1,36 +1,15 @@
-<div class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper">
-          <div class="center brand-logo">
-              <div class="center player-display">
-                  <ul class="center">
-                      <li>
-                          <i *ngIf="nowPlaying.title"
-                            (click)="stop()"
-                            class="small material-icons pointer">stop</i>
-                      </li>
-                      <li>
-                        <i *ngIf="nowPlaying.title"
-                           (click)="play()"
-                           class="small material-icons pointer">play_arrow</i>
-                      </li>
-                      <li>
-                        {{ nowPlaying.title || 'Click a Track' }}
-                      </li>
-                      <li *ngIf="player">
-                          {{ pc.player.currentTime() }}
-                      </li>
+<div class="row">
+    <div class="col s6">
+        {{song.title  || "None selected"}}
+    </div>
+    <div class="col s6">
+         <i
+            (click)="stop()"
+            class="small material-icons pointer">stop</i>
 
-                  </ul>
+        <i
+        (click)="play()"
+        class="small material-icons pointer">play_arrow</i>
 
-              </div>
-
-          </div>
-
-        <ul class="right hide-on-med-and-down">
-          <li><a>Visuals</a></li>
-          <li><a>Profile</a></li>
-        </ul>
-      </div>
-    </nav>
+    </div>
 </div>

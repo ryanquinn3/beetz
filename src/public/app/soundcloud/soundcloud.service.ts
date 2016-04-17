@@ -1,7 +1,6 @@
 import { Injectable } from 'angular2/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { Http } from 'angular2/http';
 
 import SC, {IScPlayer} from './soundcloud';
 
@@ -26,7 +25,7 @@ export default class SoundcloudConnect {
         }).share();
     }
 
-    load(song:any): Promise {
+    load(song:any): Promise<IScPlayer> {
         return this.sc.stream(`/tracks/${song.id}`).then(player => {
             this.playerRef = player;
             this.mode = SoundcloudConnectMode.Loaded;
@@ -45,8 +44,6 @@ export default class SoundcloudConnect {
             this.playerRef.pause();
         }
     }
-
-
 }
 /*
 soundCloud.$inject = ['$http', 'SCApi', '$rootScope'];

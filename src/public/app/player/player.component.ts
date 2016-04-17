@@ -1,25 +1,37 @@
-import { Component } from 'angular2/core';
-import soundcloudConnect from '../soundcloud/soundcloud.service'
+import { Component, Input, OnChanges } from 'angular2/core';
+import {IScPlayer} from '../soundcloud/soundcloud'
+import SoundcloudConnect from "../soundcloud/soundcloud.service";
 
-const template = require('./player.html');
 import './player.scss';
+const template = require('./player.html');
 
 @Component({
     template,
     selector: 'player'
 })
-export default class controller {
-    public nowPlaying: any = {};
-    public currentSeekTime: number = 0;
-    constructor (private sc: soundcloudConnect){
-        this.sc.nowPlaying.subscribe(song => this.nowPlaying = song);
+export default class player implements OnChanges {
+
+    @Input() pausible: boolean;
+    @Input() song: Object;
+
+    private player: IScPlayer;
+    constructor (private sc: SoundcloudConnect){
+
+    }
+
+    ngOnChanges(changes){
+        console.log(changes);
+        this.sc.load(this.song).then(player => {
+            this.player = player;
+            this.player.play();
+        });
     }
 
     play(){
-        this.sc.playerRef.play();
+        this.player.play();
     }
 
     stop(){
-        this.sc.playerRef.pause();
+        this.player.pause();
     }
 }

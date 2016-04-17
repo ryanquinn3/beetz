@@ -5,6 +5,7 @@ import 'zone.js';
 import 'es6-shim';
 import 'materialize-css/dist/css/materialize.css';
 import 'materialize-css/dist/js/materialize.min';
+import 'rxjs/add/operator/map'
 
 declare var require: any;
 
@@ -15,12 +16,14 @@ import { bootstrap } from 'angular2/platform/browser';
 import likesService from './likes.service';
 import soundcloudConnect from './soundcloud/soundcloud.service'
 import sc from './soundcloud/soundcloud'
+import library from './library/library.service'
 
 let providers = [
     HTTP_PROVIDERS,
     likesService,
     soundcloudConnect,
-    sc
+    sc,
+    library
 ];
 
 bootstrap(entryComponent, providers);

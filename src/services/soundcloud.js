@@ -20,7 +20,6 @@ function makeGet(url){
     return request(baseGet(url));
 }
 
-
 class SoundCloud {
 
     constructor(clientId){

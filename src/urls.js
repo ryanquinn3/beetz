@@ -18,9 +18,7 @@ router.get('/', (req, res) => {
 
 
 router.get('/load', (req, res) => {
-
     let sc = soundCloud();
-
     sc.getAllLikes().then(allLikes => {
         console.log(allLikes[0]);
         allLikes.forEach(song => {

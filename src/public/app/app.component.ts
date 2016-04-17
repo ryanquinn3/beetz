@@ -1,13 +1,20 @@
 import { Component } from 'angular2/core';
-import boot from './boot/boot.component.ts';
+import lib from './library/library.component';
 import player from './player/player.component.ts';
+import room from './room/room.component';
 
 @Component({
     selector: 'app',
     template: ` 
-        <player></player> 
-        <boot></boot>
+       <div class="row">
+         <div class="col s9">
+            <library></library>   
+         </div>
+          <div class="col s3">
+            <room></room>
+        </div>
+        </div>
     `,
-    directives: [boot, player]
+    directives: [lib, room]
 })
 export default class app {}

@@ -1,7 +1,6 @@
 import { Component, ChangeDetectorRef } from 'angular2/core';
 import likes from '../likes.service';
 import scConnect from '../soundcloud/soundcloud.service';
-import commaizePipe from '../pipes/commaize'
 
  let template =`
     <ul class="collection">
@@ -21,7 +20,6 @@ import commaizePipe from '../pipes/commaize'
 @Component({
     template,
     selector: 'boot',
-    pipes: [commaizePipe]
 })
 export default class boot {
     public boy: string  = 'Frank';
