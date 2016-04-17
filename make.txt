@@ -1,0 +1,2 @@
+install mysql
+create database circleup circleup, etc.

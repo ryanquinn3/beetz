@@ -1,6 +1,6 @@
-import { Component, ChangeDetectorRef } from 'angular2/core';
-import library from './library.service'
-import commaizePipe from '../pipes/commaize'
+import { Component, ChangeDetectorRef } from "angular2/core";
+import library from "./library.service";
+import commaizePipe from "../pipes/commaize";
 
 
 let template = ` 
@@ -16,16 +16,16 @@ let template = `
         </li>
     </ul>
 </div>
-`
+`;
 
 @Component({
     template,
-    selector: 'library',
+    selector: "library",
     pipes: [commaizePipe]
 })
 export default class LibraryComponent {
     public songs: any[];
-    constructor(private lib: library, private cd: ChangeDetectorRef){
+    constructor(private lib: library, private cd: ChangeDetectorRef) {
         this.lib.getLibrary().subscribe(songs => {
             this.songs = songs;
             this.cd.detectChanges();
