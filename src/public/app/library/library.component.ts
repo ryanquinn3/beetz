@@ -17,11 +17,11 @@ let template = `
         </li>
     </ul>
 </div>
-`
+`;
 
 @Component({
     template,
-    selector: 'library',
+    selector: "library",
     pipes: [commaizePipe]
 })
 export default class LibraryComponent {

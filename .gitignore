@@ -2,3 +2,5 @@ node_modules
 build/*
 .idea
 src/public/build
+npm-debug.log
+src/public/build

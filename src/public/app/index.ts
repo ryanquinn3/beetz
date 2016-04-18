@@ -1,11 +1,11 @@
-import 'jquery';
-import 'reflect-metadata';
-import 'rxjs';
-import 'zone.js';
-import 'es6-shim';
-import 'materialize-css/dist/css/materialize.css';
-import 'materialize-css/dist/js/materialize.min';
-import 'rxjs/add/operator/map'
+import "jquery";
+import "reflect-metadata";
+import "rxjs";
+import "zone.js";
+import "es6-shim";
+import "materialize-css/dist/css/materialize.css";
+import "materialize-css/dist/js/materialize.min";
+import "rxjs/add/operator/map";
 
 declare var require: any;
 
