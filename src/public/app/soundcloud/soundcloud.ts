@@ -1,5 +1,5 @@
-import * as soundcloudSdk from "soundcloud";
-import { Injectable } from "angular2/core";
+import * as soundcloudSdk from 'soundcloud';
+import { Injectable } from 'angular2/core';
 
 
 export interface ScPlayer {
@@ -7,9 +7,9 @@ export interface ScPlayer {
     pause(): void;
     seek(time: number): void;
     currentTime(): number;
-    setVolume(vol: number);
+    setVolume(vol: number): void;
     getVolume(): number;
-    on(event: string, handler: (event: any) => void );
+    on(event: string, handler: (event: any) => void ): void;
 }
 
 interface SoundcloudConfig {
@@ -26,11 +26,11 @@ export default class ScApiImpl {
     private sdk: SoundcloudSdk = soundcloudSdk;
     constructor() {
         this.sdk.initialize({
-            client_id: "a3c9ce6d3b22526ecd90399cb052be8e"
+            client_id: 'a3c9ce6d3b22526ecd90399cb052be8e',
         });
     }
 
-    stream(url: string): Promise<ScPlayer> {
+    public stream(url: string): Promise<ScPlayer> {
         return this.sdk.stream(url);
     }
 }

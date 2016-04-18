@@ -1,8 +1,8 @@
-import { Injectable } from "angular2/core";
-import { Observable } from "rxjs/Observable";
-import { Observer } from "rxjs/Observer";
-import { Song } from "./Song";
-import SC, {ScPlayer} from "./soundcloud";
+import { Injectable } from 'angular2/core';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import { Song } from './Song';
+import SC, {ScPlayer} from './soundcloud';
 
 enum SoundcloudConnectMode {
     Ready,
@@ -16,16 +16,16 @@ export default class SoundcloudConnect {
     public playerRef: ScPlayer = null;
 
     public nowPlaying: Observable<any>;
-    private nowPlayingObserver: Observer<any>;
+    private nowPlayingObserver: Observer<Song>;
 
     constructor(private sc: SC ) {
-        this.nowPlaying = Observable.create( observer => {
+        this.nowPlaying = Observable.create( (observer: Observer<Song>) => {
             this.nowPlayingObserver = observer;
         }).share();
     }
 
-    load(song: Song): Promise<ScPlayer> {
-        return this.sc.stream(`/tracks/${song.id}`).then(player => {
+    public load(song: Song): Promise<ScPlayer> {
+        return this.sc.stream(`/tracks/${song.id}`).then((player: ScPlayer) => {
             this.playerRef = player;
             this.mode = SoundcloudConnectMode.Loaded;
             this.nowPlayingObserver.next(song);
@@ -33,12 +33,12 @@ export default class SoundcloudConnect {
         });
     }
 
-    clear() {
+    public clear(): void {
         this.playerRef = null;
         this.mode = SoundcloudConnectMode.Ready;
     }
 
-    pause() {
+    public pause(): void {
         if (this.mode === SoundcloudConnectMode.Loaded) {
             this.playerRef.pause();
         }
