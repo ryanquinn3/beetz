@@ -9,7 +9,7 @@ import {
 
 
 @Injectable()
-export default class RoomService {
+class RoomService {
 
     private currentRoom: Room = null;
     private allRooms: Room[] = [];
@@ -47,3 +47,4 @@ export default class RoomService {
         this.currentRoom = newRoom;
     }
 }
+export default RoomService;

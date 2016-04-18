@@ -11,7 +11,7 @@ enum SoundcloudConnectMode {
 
 
 @Injectable()
-export default class SoundcloudConnect {
+class SoundcloudConnect {
     public mode:SoundcloudConnectMode = SoundcloudConnectMode.Ready;
     public playerRef:ScPlayer = null;
 
@@ -44,3 +44,4 @@ export default class SoundcloudConnect {
         }
     }
 }
+export default SoundcloudConnect;

@@ -26,7 +26,7 @@ let template: string = `
     template,
     selector: 'queue-component',
 })
-export default class QueueComponent implements OnChanges {
+class QueueComponent implements OnChanges {
     @Input() public queue: Queue;
 
     private queuedSongs: QueuedUpSong[];
@@ -39,3 +39,5 @@ export default class QueueComponent implements OnChanges {
     }
 
 }
+export default QueueComponent;
+

@@ -25,7 +25,7 @@ let template: string = `
     selector: 'library',
     pipes: [commaizePipe],
 })
-export default class LibraryComponent {
+class LibraryComponent {
     public songs: Song[];
     constructor(private lib: library, private cd: ChangeDetectorRef, private rs: roomService){
         this.lib.getLibrary().subscribe((songs: Song[]) => {
@@ -38,3 +38,4 @@ export default class LibraryComponent {
         this.rs.queueUpSong(song);
     }
 }
+export default LibraryComponent;

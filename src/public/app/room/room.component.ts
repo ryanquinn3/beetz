@@ -15,7 +15,7 @@ let template: string = `
     selector: 'room',
     directives: [queue, player],
 })
-export default class RoomComponent {
+class RoomComponent {
     private queue: Queue;
     private song: QueuedUpSong;
     constructor(private rs: roomService) {
@@ -29,3 +29,4 @@ export default class RoomComponent {
 
    
 }
+export default RoomComponent;

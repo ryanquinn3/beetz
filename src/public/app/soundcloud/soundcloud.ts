@@ -4,7 +4,7 @@ import { ScSdk, ScPlayer } from '../core/types';
 
 
 @Injectable()
-export default class ScApiImpl {
+class ScApiImpl {
     private sdk: ScSdk = soundcloudSdk;
     constructor() {
         this.sdk.initialize({
@@ -16,3 +16,4 @@ export default class ScApiImpl {
         return this.sdk.stream(url);
     }
 }
+export default ScApiImpl;
