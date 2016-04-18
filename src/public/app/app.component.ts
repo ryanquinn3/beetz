@@ -1,6 +1,7 @@
 import { Component } from 'angular2/core';
 import lib from './library/library.component';
 import room from './room/room.component';
+import globalProviders from './core/global-providers';
 
 @Component({
     selector: 'app',
@@ -15,5 +16,6 @@ import room from './room/room.component';
         </div>
     `,
     directives: [lib, room],
+    providers: [globalProviders],
 })
 export default class App {}

@@ -12,18 +12,10 @@ declare var require: any;
 import entryComponent from './app.component';
 import { HTTP_PROVIDERS } from 'angular2/http';
 import { bootstrap } from 'angular2/platform/browser';
- 
-import library from './library/library.service';
-import roomService from './room/room.service';
-import soundcloudConnect from './soundcloud/soundcloud.service';
-import sc from './soundcloud/soundcloud';
+
 
 let providers: any = [
     HTTP_PROVIDERS,
-    soundcloudConnect,
-    sc,
-    library,
-    roomService,
 ];
 
 bootstrap(entryComponent, providers);
