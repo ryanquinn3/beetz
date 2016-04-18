@@ -17,13 +17,15 @@ import likesService from './likes.service';
 import soundcloudConnect from './soundcloud/soundcloud.service'
 import sc from './soundcloud/soundcloud'
 import library from './library/library.service'
+import roomService from './room/room.service'
 
 let providers = [
     HTTP_PROVIDERS,
     likesService,
     soundcloudConnect,
     sc,
-    library
+    library,
+    roomService
 ];
 
 bootstrap(entryComponent, providers);
