@@ -2,9 +2,12 @@ import { Component, ChangeDetectorRef } from 'angular2/core';
 import roomService from '../room/room.service';
 import library from './library.service'
 import commaizePipe from '../pipes/commaize'
+import library from './library.service';
+import commaizePipe from '../pipes/commaize';
+import { Song } from '../soundcloud/Song';
 
 
-let template = ` 
+let template: string = ` 
  <div style="height:100%; overflow-y: scroll;">
     <ul class="collection">
         <li class="collection-item"  style="height: 45px;" *ngFor="#like of songs; #i = index">
@@ -21,19 +24,19 @@ let template = `
 
 @Component({
     template,
-    selector: "library",
-    pipes: [commaizePipe]
+    selector: 'library',
+    pipes: [commaizePipe],
 })
 export default class LibraryComponent {
-    public songs: any[];
+    public songs: Song[];
     constructor(private lib: library, private cd: ChangeDetectorRef, private rs: roomService){
-        this.lib.getLibrary().subscribe(songs => {
+        this.lib.getLibrary().subscribe((songs: Song[]) => {
             this.songs = songs;
             this.cd.detectChanges();
         });
     }
 
-    queue(song) {
+    public queue(song: Song): void {
         this.rs.queueUpSong(song);
     }
 }
