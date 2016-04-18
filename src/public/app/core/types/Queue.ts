@@ -7,8 +7,8 @@ export interface QueuedUpSong {
 }
 
 export interface Queue {
-    addSong(QueuedUpSong) : void;
-    removeSongAtIndex(index: number);
-    nextSong() : QueuedUpSong;
-    getAllSongs() : QueuedUpSong[];
+    addSong(song: QueuedUpSong): void;
+    removeSongAtIndex(index: number): void;
+    nextSong(): QueuedUpSong;
+    getAllSongs(): QueuedUpSong[];
 }

@@ -32,8 +32,8 @@ class QueueComponent implements OnChanges {
     private queuedSongs: QueuedUpSong[];
     constructor() {}
 
-    public ngOnChanges(changes: {[propName: string]: SimpleChange}): void{
-        if(this.queue){
+    public ngOnChanges(changes: {[propName: string]: SimpleChange}): void {
+        if (this.queue) {
             this.queuedSongs = this.queue.getAllSongs();
         }
     }

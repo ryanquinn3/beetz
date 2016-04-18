@@ -12,20 +12,20 @@ enum SoundcloudConnectMode {
 
 @Injectable()
 class SoundcloudConnect {
-    public mode:SoundcloudConnectMode = SoundcloudConnectMode.Ready;
-    public playerRef:ScPlayer = null;
+    public mode: SoundcloudConnectMode = SoundcloudConnectMode.Ready;
+    public playerRef: ScPlayer = null;
 
-    public nowPlaying:Observable<any>;
-    private nowPlayingObserver:Observer<Song>;
+    public nowPlaying: Observable<any>;
+    private nowPlayingObserver: Observer<Song>;
 
-    constructor(private sc:SC) {
-        this.nowPlaying = Observable.create((observer:Observer<Song>) => {
+    constructor(private sc: SC) {
+        this.nowPlaying = Observable.create((observer: Observer<Song>) => {
             this.nowPlayingObserver = observer;
         }).share();
     }
 
-    public load(song:Song):Promise<ScPlayer> {
-        return this.sc.stream(`/tracks/${song.id}`).then((player:ScPlayer) => {
+    public load(song: Song): Promise<ScPlayer> {
+        return this.sc.stream(`/tracks/${song.id}`).then((player: ScPlayer) => {
             this.playerRef = player;
             this.mode = SoundcloudConnectMode.Loaded;
             this.nowPlayingObserver.next(song);
@@ -33,12 +33,12 @@ class SoundcloudConnect {
         });
     }
 
-    public clear():void {
+    public clear(): void {
         this.playerRef = null;
         this.mode = SoundcloudConnectMode.Ready;
     }
 
-    public pause():void {
+    public pause(): void {
         if (this.mode === SoundcloudConnectMode.Loaded) {
             this.playerRef.pause();
         }

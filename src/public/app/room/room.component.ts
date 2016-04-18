@@ -6,7 +6,8 @@ import { Queue, QueuedUpSong } from '../core/types';
 
 
 let template: string = `
-    <player [queuedSong]="song"></player>
+    <player [queuedSong]="song"
+            (songFinished)="songFinished()"></player>
     <queue-component [queue]="queue"></queue-component>
 `;
 
@@ -21,12 +22,13 @@ class RoomComponent {
     constructor(private rs: roomService) {
         this.queue = rs.getCurrentRoom().getQueue();
         this.song = this.queue.nextSong();
-        
      /*   this.queue.getUpdateObservable().subscribe( (songs: QueuedUpSong[]) => {
             
         });*/
     }
 
-   
+    public songFinished(): void {
+        // get next song from queue, load into this.song
+    }
 }
 export default RoomComponent;

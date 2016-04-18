@@ -23,7 +23,7 @@ let providers: any = [
     soundcloudConnect,
     sc,
     library,
-    roomService
+    roomService,
 ];
 
 bootstrap(entryComponent, providers);

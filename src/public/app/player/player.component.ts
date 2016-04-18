@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, SimpleChange } from 'angular2/core';
+import { Component, Input, OnChanges, SimpleChange, Output, EventEmitter } from 'angular2/core';
 import { ScPlayer } from '../soundcloud/soundcloud';
 import SoundcloudConnect from '../soundcloud/soundcloud.service';
-import { QueuedUpSong } from '../core/types';
+import { QueuedUpSong, ScPlayerEvent } from '../core/types';
 
 const template: string = `
 <div class="row">
@@ -25,20 +25,21 @@ const template: string = `
 })
 class Player implements OnChanges {
 
-    @Input() private queuedSong: QueuedUpSong;
-
+    @Input() public queuedSong: QueuedUpSong;
+    @Output() public songFinished: EventEmitter = new EventEmitter();
     private player: ScPlayer;
-    constructor (private sc: SoundcloudConnect) {
-
-    }
+    constructor (private sc: SoundcloudConnect) {}
 
     public ngOnChanges(changes: {[propName: string]: SimpleChange}): void {
-        if(!this.queuedSong) {
+        if (!this.queuedSong) {
             return;
         }
         this.sc.load(this.queuedSong.song).then((player: ScPlayer) => {
             this.player = player;
             this.player.play();
+            this.player.on(ScPlayerEvent.Finished, () => {
+                this.songFinished.emit('event');
+            });
         });
     }
 

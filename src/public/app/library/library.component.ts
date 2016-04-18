@@ -27,7 +27,7 @@ let template: string = `
 })
 class LibraryComponent {
     public songs: Song[];
-    constructor(private lib: library, private cd: ChangeDetectorRef, private rs: roomService){
+    constructor(private lib: library, private cd: ChangeDetectorRef, private rs: roomService) {
         this.lib.getLibrary().subscribe((songs: Song[]) => {
             this.songs = songs;
             this.cd.detectChanges();

@@ -3,17 +3,18 @@ import { Queue, QueuedUpSong } from './Queue';
 import { Room } from './Room';
 import { Song } from './Song';
 import { User } from './User';
-import { ScPlayer } from './ScPlayer'
+import { ScPlayer, ScPlayerEvent} from './ScPlayer';
 import { ScSdk } from './ScSdk';
 import { ScConfig } from './ScConfig';
 
 export {
     Queue,
-    QueuedUpSong,   
+    QueuedUpSong,
     Room,
     Song,
     User,
     ScPlayer,
+    ScPlayerEvent,
     ScConfig,
     ScSdk
 }
