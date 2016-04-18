@@ -1,0 +1,3 @@
+what is require?
+
+why does likes service return an Observable? Shouldn't it be a plain Promise?

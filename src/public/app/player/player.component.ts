@@ -1,38 +1,53 @@
-import { Component, Input, OnChanges } from "angular2/core";
-import {ScPlayer} from "../soundcloud/soundcloud";
-import SoundcloudConnect from "../soundcloud/soundcloud.service";
-import {Song} from "../soundcloud/Song";
+import { Component, Input, OnChanges, SimpleChange } from 'angular2/core';
+import {ScPlayer} from '../soundcloud/soundcloud';
+import SoundcloudConnect from '../soundcloud/soundcloud.service';
+import {Song} from '../soundcloud/Song';
 
-const template = require("./player.html");
-import "./player.scss";
+const template: string = `
+<div class="row">
+    <div class="col s6">
+        {{song.title  || "None selected"}}
+    </div>
+    <div class="col s6">
+         <i
+            (click)="stop()"
+            class="small material-icons pointer">stop</i>
+
+        <i
+        (click)="play()"
+        class="small material-icons pointer">play_arrow</i>
+
+    </div>
+</div>
+`;
 
 @Component({
     template,
-    selector: "player"
+    selector: 'player',
 })
-export default class Player implements OnChanges {
+export class Player implements OnChanges {
 
-    @Input() pausible: boolean;
-    @Input() song: Song;
+    @Input() private song: Song;
 
     private player: ScPlayer;
     constructor (private sc: SoundcloudConnect) {
 
     }
 
-    ngOnChanges(changes) {
+    public ngOnChanges(changes: {[propName: string]: SimpleChange}): void {
         console.log(changes);
-        this.sc.load(this.song).then(player => {
+        this.sc.load(this.song).then((player: ScPlayer) => {
             this.player = player;
             this.player.play();
         });
     }
 
-    play() {
+    public play(): void {
         this.player.play();
     }
 
-    stop() {
+    public stop(): void {
         this.player.pause();
     }
 }
+export default Player;

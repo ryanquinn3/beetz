@@ -1,7 +1,7 @@
-import { Component, Input } from "angular2/core";
+import { Component, Input } from 'angular2/core';
 
 
-let template  = `
+let template: string = `
 
 <div class="queue--container">
     <ul class="collection">
@@ -17,12 +17,12 @@ let template  = `
 
 @Component({
     template,
-    selector: "queue-component",
+    selector: 'queue-component',
 })
 export default class QueueComponent {
-    @Input() queue: any;
+    @Input()
+    public queue: any;
 
     constructor() {}
-
 
 }
