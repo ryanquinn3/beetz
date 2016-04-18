@@ -5,7 +5,7 @@ import { Room } from '../room';
 
 @Injectable()
 export default class RoomService {
-    
+
     private currentRoom: Room = null;
     private allRooms: Room[];
 
@@ -30,6 +30,4 @@ export default class RoomService {
 
         this.currentRoom.queue.songs.push(song)
     }
-
-
 }
