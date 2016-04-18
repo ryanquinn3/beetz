@@ -1,4 +1,4 @@
-/*import { Observable } from 'rxjs/Observable';
+/* import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer'; */
 import { Queue, QueuedUpSong } from '../core/types';
 
@@ -10,7 +10,7 @@ class PrivateQueue implements Queue {
     private songsObservable: Observable<QueuedUpSong[]>;
     private songsObserver: Observer<QueuedUpSong[]>;
     */
-    constructor(){
+    constructor() {
         /*
         this.songsObservable = Observable.create( (observer: Observer<QueuedUpSong[]>) => {
            this.songsObserver = observer; 
@@ -25,25 +25,25 @@ class PrivateQueue implements Queue {
     }
 
     public nextSong(): QueuedUpSong {
-        if(!this.songs.length){
+        if (!this.songs.length) {
             return null;
         }
         let nextSong: QueuedUpSong = this.songs.shift();
-        //this.songsObserver.next(this.songs);
+        // this.songsObserver.next(this.songs);
         return nextSong;
     }
 
-    public removeSongAtIndex(index: number) : void {
+    public removeSongAtIndex(index: number): void {
         this.songs = this.songs.filter( (song: QueuedUpSong, i: number) => {
            return i !== index;
         });
      //   this.songsObserver.next(this.songs);
     }
-    
-    public getAllSongs() : QueuedUpSong[] {
+
+    public getAllSongs(): QueuedUpSong[] {
         return this.songs;
     }
-    
+
    /* public getUpdateObservable() : Observable<QueuedUpSong[]> {
         return this.songsObservable;
     }*/
