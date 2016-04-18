@@ -1,10 +1,8 @@
 import { Component, ChangeDetectorRef } from 'angular2/core';
 import roomService from '../room/room.service';
-import library from './library.service'
-import commaizePipe from '../pipes/commaize'
 import library from './library.service';
 import commaizePipe from '../pipes/commaize';
-import { Song } from '../soundcloud/Song';
+import { Song } from '../core/types';
 
 
 let template: string = ` 

@@ -1,21 +1,19 @@
 import { Component, Input, OnChanges, SimpleChange } from 'angular2/core';
-import {ScPlayer} from '../soundcloud/soundcloud';
+import { ScPlayer } from '../soundcloud/soundcloud';
 import SoundcloudConnect from '../soundcloud/soundcloud.service';
-import {Song} from '../soundcloud/Song';
+import { QueuedUpSong } from '../core/types';
 
 const template: string = `
 <div class="row">
     <div class="col s6">
-        {{song.title  || "None selected"}}
+        {{queuedSong ? queuedSong.song.title : "None selected"}}
     </div>
     <div class="col s6">
-         <i
-            (click)="stop()"
+         <i (click)="stop()"
             class="small material-icons pointer">stop</i>
 
-        <i
-        (click)="play()"
-        class="small material-icons pointer">play_arrow</i>
+        <i (click)="play()"
+            class="small material-icons pointer">play_arrow</i>
 
     </div>
 </div>
@@ -25,9 +23,9 @@ const template: string = `
     template,
     selector: 'player',
 })
-export class Player implements OnChanges {
+class Player implements OnChanges {
 
-    @Input() private song: Song;
+    @Input() private queuedSong: QueuedUpSong;
 
     private player: ScPlayer;
     constructor (private sc: SoundcloudConnect) {
@@ -35,8 +33,10 @@ export class Player implements OnChanges {
     }
 
     public ngOnChanges(changes: {[propName: string]: SimpleChange}): void {
-        console.log(changes);
-        this.sc.load(this.song).then((player: ScPlayer) => {
+        if(!this.queuedSong) {
+            return;
+        }
+        this.sc.load(this.queuedSong.song).then((player: ScPlayer) => {
             this.player = player;
             this.player.play();
         });

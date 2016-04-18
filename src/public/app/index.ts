@@ -15,13 +15,11 @@ import { bootstrap } from 'angular2/platform/browser';
  
 import library from './library/library.service';
 import roomService from './room/room.service';
-import likesService from './likes.service';
 import soundcloudConnect from './soundcloud/soundcloud.service';
 import sc from './soundcloud/soundcloud';
 
 let providers: any = [
     HTTP_PROVIDERS,
-    likesService,
     soundcloudConnect,
     sc,
     library,
