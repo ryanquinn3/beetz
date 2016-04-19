@@ -1,5 +1,5 @@
 node_modules
 build/*
 .idea
-npm-debug.log
 src/public/build
+npm-debug.log

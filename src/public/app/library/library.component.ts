@@ -1,7 +1,8 @@
 import { Component, ChangeDetectorRef } from 'angular2/core';
+import roomService from '../room/room.service';
 import library from './library.service';
 import commaizePipe from '../pipes/commaize';
-import { Song } from '../soundcloud/Song';
+import { Song } from '../core/types';
 
 
 let template: string = ` 
@@ -9,7 +10,7 @@ let template: string = `
     <ul class="collection">
         <li class="collection-item"  style="height: 45px;" *ngFor="#like of songs; #i = index">
             <div class="row">
-                <div class="col s6" (click)="play(like)">{{i + 1}}. {{like.title}}</div>
+                <div class="col s6" (click)="queue(like)">{{i + 1}}. {{like.title}}</div>
                 <div class="col s2">Plays: {{like.playback_count | commaize }}</div>
                 <div class="col s2">Favs: {{like.favoritings_count | commaize }}</div>
                 <div class="col s2"></div>
@@ -24,15 +25,17 @@ let template: string = `
     selector: 'library',
     pipes: [commaizePipe],
 })
-export default class LibraryComponent {
+class LibraryComponent {
     public songs: Song[];
-    constructor(private lib: library, private cd: ChangeDetectorRef) {
+    constructor(private lib: library, private cd: ChangeDetectorRef, private rs: roomService) {
         this.lib.getLibrary().subscribe((songs: Song[]) => {
             this.songs = songs;
             this.cd.detectChanges();
         });
     }
 
-    public play(song: Song): void {
+    public queue(song: Song): void {
+        this.rs.queueUpSong(song);
     }
 }
+export default LibraryComponent;

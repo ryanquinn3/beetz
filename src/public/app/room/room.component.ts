@@ -1,9 +1,13 @@
 import { Component } from 'angular2/core';
 import queue from './queue.component';
 import player from '../player/player.component';
+import roomService from './room.service';
+import { Queue, QueuedUpSong } from '../core/types';
+
 
 let template: string = `
-    <player [song]="song"></player>
+    <player [queuedSong]="song"
+            (songFinished)="songFinished()"></player>
     <queue-component [queue]="queue"></queue-component>
 `;
 
@@ -12,12 +16,19 @@ let template: string = `
     selector: 'room',
     directives: [queue, player],
 })
-export default class RoomComponent {
-    private queue: any[];
-    private song: Object;
-    constructor() {
-        this.queue = [{title: 'whatever'}];
+class RoomComponent {
+    private queue: Queue;
+    private song: QueuedUpSong;
+    constructor(private rs: roomService) {
+        this.queue = rs.getCurrentRoom().getQueue();
+        this.song = this.queue.nextSong();
+     /*   this.queue.getUpdateObservable().subscribe( (songs: QueuedUpSong[]) => {
 
-        this.song = this.queue[0];
+        });*/
+    }
+
+    public songFinished(): void {
+        // get next song from queue, load into this.song
     }
 }
+export default RoomComponent;
