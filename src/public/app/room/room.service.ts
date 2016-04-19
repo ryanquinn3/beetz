@@ -4,7 +4,7 @@ import { PrivateRoom } from './PrivateRoom';
 import {
     Room,
     Song,
-    QueuedUpSong
+    QueuedUpSong,
 } from '../core/types';
 
 
@@ -12,17 +12,17 @@ import {
 class RoomService {
 
     private currentRoom: Room = null;
-    private allRooms: Room[] = [];
+    private allRooms: Room[];
 
-    constructor(private http: Http){
-        //want to ping server for rooms, just testing with private room now
-        this.allRooms.push(new PrivateRoom());
+    constructor(private http: Http) {
+        // want to ping server for rooms, just testing with private room now
+        this.allRooms = [new PrivateRoom()];
         this.currentRoom = this.allRooms[0];
     }
 
 
-    public allRooms(): Room[]{
-        //rpc
+    public allRooms(): Room[] {
+        // rpc
         return this.allRooms;
     }
 
@@ -30,20 +30,20 @@ class RoomService {
         return this.currentRoom;
     }
 
-    public queueUpSong(song: Song){
+    public queueUpSong(song: Song): void {
         /*
             Probably want to pull from user service to get current user
             then add user_id with song to add to queue
         */
         let queuedSong: QueuedUpSong = {
             song,
-            dj: {}
+            dj: {},
         };
         this.currentRoom.getQueue().addSong(queuedSong);
     }
-    
+
     public setRoom(newRoom: Room): void {
-        //Want to figure out a check to make sure its a valid room
+        // Want to figure out a check to make sure its a valid room
         this.currentRoom = newRoom;
     }
 }

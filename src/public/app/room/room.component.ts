@@ -1,4 +1,4 @@
-import {Component, OnChanges, SimpleChange} from 'angular2/core';
+import { Component } from 'angular2/core';
 import queue from './queue.component';
 import player from '../player/player.component';
 import roomService from './room.service';
@@ -23,7 +23,7 @@ class RoomComponent {
         this.queue = rs.getCurrentRoom().getQueue();
         this.song = this.queue.nextSong();
      /*   this.queue.getUpdateObservable().subscribe( (songs: QueuedUpSong[]) => {
-            
+
         });*/
     }
 

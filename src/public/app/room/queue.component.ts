@@ -3,7 +3,6 @@ import {
     Input,
     OnChanges,
     SimpleChange,
-    Output
 } from 'angular2/core';
 import { Queue, QueuedUpSong } from '../core/types';
 
