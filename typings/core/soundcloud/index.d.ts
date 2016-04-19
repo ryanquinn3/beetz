@@ -1,4 +1,8 @@
-export interface ScPlayer {
+interface ScConfig {
+    client_id: string;
+}
+
+interface ScPlayer {
     play(): void;
     pause(): void;
     seek(time: number): void;
@@ -8,7 +12,7 @@ export interface ScPlayer {
     on(event: ScPlayerEvent, handler: () => void ): void;
 }
 
-export enum ScPlayerEvent {
+declare enum ScPlayerEvent {
     StateChange = <any>'state-change',
     Play = <any>'play',
     PlayStart = <any>'play-start',
@@ -25,4 +29,9 @@ export enum ScPlayerEvent {
     NoStreams = <any>'no_streams',
     NoProtocol = <any>'no_protocol',
     NoConnection = <any>'no_connection'
+}
+
+interface ScSdk {
+    initialize(config: ScConfig): void;
+    stream(url: string): Promise<ScPlayer>;
 }

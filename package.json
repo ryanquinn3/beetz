@@ -9,7 +9,8 @@
     "pack-test": "webpack --quiet --config webpack.test.js test.bundle.js",
     "f-test": "npm run pack-test && cat test.bundle.js | tap-closer | smokestack | tap-spec && npm run clean",
     "test": "npm run f-test",
-    "postinstall": "typings install"
+    "postinstall": "typings install",
+    "lint": "tslint -c tslint.json src/**/*.ts"
   },
   "author": "",
   "license": "ISC",

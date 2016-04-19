@@ -1,5 +1,6 @@
 import { User } from './User';
 import { Song } from './Song';
+import { Observable } from 'rxjs/Observable';
 
 export interface QueuedUpSong {
     song: Song;
@@ -11,4 +12,5 @@ export interface Queue {
     removeSongAtIndex(index: number): void;
     nextSong(): QueuedUpSong;
     getAllSongs(): QueuedUpSong[];
+    getUpdateObservable(): Observable<QueuedUpSong[]>;
 }

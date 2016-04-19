@@ -12,18 +12,18 @@ import {
 class RoomService {
 
     private currentRoom: Room = null;
-    private allRooms: Room[];
+    private allAvailableRooms: Room[];
 
     constructor(private http: Http) {
         // want to ping server for rooms, just testing with private room now
-        this.allRooms = [new PrivateRoom()];
-        this.currentRoom = this.allRooms[0];
+        this.allAvailableRooms = [new PrivateRoom()];
+        this.currentRoom = this.allAvailableRooms[0];
     }
 
 
     public allRooms(): Room[] {
         // rpc
-        return this.allRooms;
+        return this.allAvailableRooms;
     }
 
     public getCurrentRoom(): Room {

@@ -14,4 +14,4 @@ class Commaize implements PipeTransform {
             .split('').reverse().join(''); // reverse back
       }
 }
-export default Commaize;
+export { Commaize };
