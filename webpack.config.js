@@ -19,13 +19,11 @@ var frontendConfig = {
         fileName: 'bundle.js'
     },
     resolve: {
-        extensions: ["", ".webpack.js", ".web.js", ".js", ".ts"]
-    },
-    plugins: [
-        new webpack.ProvidePlugin({
-            riot: 'riot'
-        })
-    ]
+        extensions: ["", ".webpack.js", ".web.js", ".js", ".ts"],
+        alias: {
+            types: pathToSrc('public/app/core/types')
+        }
+    }
 };
 
 var backendConfig = {
@@ -94,7 +92,7 @@ function create(options) {
                     }
                 },
                 { test: /\.css$/, loader: 'style!css'},
-                { test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
+                { test: /\.scss$/, loader: 'raw!sass?sourceMap'},
                 { test: /\.html$/, loader: 'raw' },
                 { test: /\.(ttf|otf|eot|svg|woff(2)?)$/, loader: 'file-loader' }
 

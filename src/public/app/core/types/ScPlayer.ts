@@ -8,21 +8,21 @@ export interface ScPlayer {
     on(event: ScPlayerEvent, handler: () => void ): void;
 }
 
-export enum ScPlayerEvent {
-    StateChange = 'state-change',
-    Play = 'play',
-    PlayStart = 'play-start',
-    PlayResume = 'play-resume',
-    Pause = 'pause',
-    Finished = 'finish',
-    Seek = 'seek',
-    Seeked = 'seeked',
-    GeoBlocked = 'geo_blocked',
-    BufferingStart = 'buffering_start',
-    BufferingEnd = 'buffering_end',
-    AudioError = 'audio_error',
-    Time = 'time',
-    NoStreams = 'no_streams',
-    NoProtocol = 'no_protocol',
-    NoConnection = 'no_connection'
+export class ScPlayerEvent {
+    public static stateChange: string = 'state-change';
+    public static play: string = 'play';
+    public static playStart: string = 'play-start';
+    public static playResume: string = 'play-resume';
+    public static pause: string = 'pause';
+    public static finished: string = 'finish';
+    public static seek: string = 'seek';
+    public static seeked: string = 'seeked';
+    public static geoBlocked: string = 'geo_blocked';
+    public static bufferingStart: string = 'buffering_start';
+    public static bufferingEnd: string = 'buffering_end';
+    public static audioError: string = 'audio_error';
+    public static time: string = 'time';
+    public static noStreams: string = 'no_streams';
+    public static noProtocol: string = 'no_protocol';
+    public static noConnection: string = 'no_connection';
 }

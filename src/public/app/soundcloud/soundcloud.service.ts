@@ -28,7 +28,7 @@ class SoundcloudConnect {
         return this.sc.stream(`/tracks/${song.id}`).then((player: ScPlayer) => {
             this.playerRef = player;
             this.mode = SoundcloudConnectMode.Loaded;
-            this.nowPlayingObserver.next(song);
+           // this.nowPlayingObserver.next(song);
             return player;
         });
     }
