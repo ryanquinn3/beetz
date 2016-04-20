@@ -21,11 +21,15 @@ router.get('/load', (req, res) => {
     let sc = soundCloud();
     sc.getAllLikes().then(allLikes => {
         console.log(allLikes[0]);
+        let proms = [];
         allLikes.forEach(song => {
             delete song.user;
-            new SoundcloudSong(song).save(null, {method: 'insert'}).then((song)=> console.log(`saved ${song.title}`));
+            if(song.download_url) {
+                delete song.download_url;
+            }
+            proms.push(new SoundcloudSong(song).save(null, {method: 'insert'}).then((song)=> console.log(`saved ${song.title}`)));
         });
-
+        Promise.all(proms).then(() => res.send('okay'));
     });
 
 });

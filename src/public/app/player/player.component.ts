@@ -1,38 +1,121 @@
-import { Component, Input, OnChanges } from "angular2/core";
-import {ScPlayer} from "../soundcloud/soundcloud";
-import SoundcloudConnect from "../soundcloud/soundcloud.service";
-import {Song} from "../soundcloud/Song";
+import {
+    Component,
+    Input,
+    OnChanges,
+    SimpleChange,
+    Output,
+    EventEmitter,
+    ChangeDetectorRef,
+} from 'angular2/core';
+    import SoundcloudConnect from '../soundcloud/soundcloud.service';
+import { ScPlayer, QueuedUpSong, ScPlayerEvent } from '../core/types';
 
-const template = require("./player.html");
-import "./player.scss";
+const template: string = `
+<div class="player-container">
+    <div class="row">
+        <div class="col s11">
+            {{ queuedSong ? queuedSong.song.title : "No song selected" }}
+        </div>
+        <div class="col s1">
+            {{ seekTime || '--' }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <a (click)="play()" class="btn-floating  waves-effect waves-light teal accent-2">
+                <i class="material-icons">play_arrow</i>
+            </a>
+             <a (click)="stop()" class="btn-floating  waves-effect waves-light teal accent-2">
+                <i class="material-icons">stop</i>
+             </a>
+              <a (click)="next()" class="btn-floating  waves-effect waves-light teal accent-2">
+                <i class="material-icons">skip_next</i>
+               </a>
+        </div>
+        
+    </div>
+</div>
+`;
 
 @Component({
     template,
-    selector: "player"
+    selector: 'player',
+    styles: [`
+        .player-container {
+            margin: 10px;
+        }
+    `, ] ,
 })
-export default class Player implements OnChanges {
+class Player implements OnChanges {
 
-    @Input() pausible: boolean;
-    @Input() song: Song;
-
+    @Input() public queuedSong: QueuedUpSong;
+    @Output() public songFinished: EventEmitter<String> = new EventEmitter<String>();
     private player: ScPlayer;
-    constructor (private sc: SoundcloudConnect) {
+    private seekTime: string;
+    constructor (private sc: SoundcloudConnect, private cd: ChangeDetectorRef) {}
 
+    public ngOnChanges(changes: {[propName: string]: SimpleChange}): void {
+        if (!this.queuedSong) {
+            return;
+        }
+        console.log('fetching player');
+        this.sc.load(this.queuedSong.song)
+            .then( (player: ScPlayer) => {
+                this.attachPlayerHandlers(player);
+                this.player = player;
+                this.player.play();
+            })
+            .catch( (err: Error) => {
+               console.error(err);
+            });
     }
 
-    ngOnChanges(changes) {
-        console.log(changes);
-        this.sc.load(this.song).then(player => {
-            this.player = player;
-            this.player.play();
-        });
-    }
-
-    play() {
+    public play(): void {
         this.player.play();
     }
 
-    stop() {
+    public stop(): void {
         this.player.pause();
     }
+
+    public next(): void {
+        this.player.pause();
+        this.songFinished.emit('event');
+    }
+
+    private millisToTimeString(millis: number): string {
+        let minutes: number = Math.floor(millis / 60000);
+        let seconds: number = Number(((millis % 60000) / 1000).toFixed(0));
+        return `${minutes}:${(seconds < 10 ? '0' : '')}${seconds}`;
+    }
+
+    private attachPlayerHandlers(player: ScPlayer): void {
+        player.on(ScPlayerEvent.Finished, () => {
+            console.log('song finished');
+            this.songFinished.emit('event');
+        });
+        player.on(ScPlayerEvent.Time, () => {
+            this.seekTime = this.millisToTimeString(player.currentTime());
+            this.cd.detectChanges();
+        });
+
+        player.on(ScPlayerEvent.AudioError, () => {
+           console.error('Audio error occurred');
+        });
+
+        player.on(ScPlayerEvent.NoConnection, () => {
+           console.error('No connection error');
+        });
+
+        player.on(ScPlayerEvent.NoStreams, () => {
+           console.error('No streams error');
+        });
+
+        player.on(ScPlayerEvent.NoProtocol, () => {
+           console.error('No protocol error');
+        });
+
+    }
+
 }
+export default Player;

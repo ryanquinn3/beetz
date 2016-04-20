@@ -1,25 +1,44 @@
-import { Component } from "angular2/core";
-import {Observable} from "rxjs/Observable";
-import { Observer } from "rxjs/Observer";
-import queue from "./queue.component";
-import player from "../player/player.component";
+import { Component } from 'angular2/core';
+import queue from './queue.component';
+import player from '../player/player.component';
+import roomService from './room.service';
+import { Queue, QueuedUpSong } from '../core/types';
 
-let template = `
-    <player [song]="song"></player>
-    <queue-component [queue]="queue"></queue-component>
+
+let template: string = `
+    <player 
+        [queuedSong]="song"
+        (songFinished)="songFinished()">
+    </player>
+    <queue-component 
+        [queue]="queue"
+        (nextUp)="nextSong($event)">    
+    </queue-component>
 `;
 
 @Component({
     template,
-    selector: "room",
-    directives: [queue, player]
+    selector: 'room',
+    directives: [queue, player],
 })
-export default class RoomComponent {
-    private queue: any[];
-    private song: Object;
-    constructor() {
-        this.queue = [{title: "whatever"}];
+class RoomComponent {
+    private queue: Queue;
+    private song: QueuedUpSong;
+    constructor(private rs: roomService) {
+        this.queue = rs.getCurrentRoom().getQueue();
+        this.song = this.queue.nextSong();
 
-        this.song = this.queue[0];
+    }
+
+    public nextSong(song: QueuedUpSong): void {
+        if (song && !this.song) {
+            this.song = this.queue.nextSong();
+        }
+    }
+
+    public songFinished(): void {
+        console.log('snagged a boy');
+        this.song = this.queue.nextSong();
     }
 }
+export default RoomComponent;
