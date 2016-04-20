@@ -6,29 +6,15 @@ import {
     Output,
     EventEmitter,
 } from 'angular2/core';
-import { Queue, QueuedUpSong } from '../core/types';
+import { Queue, QueuedUpSong } from '../../core/types';
 
-
-let template: string = `
-
-<div class="queue--container">
-    <ul class="collection">
-        <li class="collection-item avatar" *ngFor="#queuedSong of queuedSongs; #i = index">
-          <img [src]="queuedSong.song.artwork_url" alt="" class="circle">
-          <span class="title">{{queuedSong.song.title}}  </span>
-          <a class="secondary-content"
-             (click)="remove(i)">
-             <i class="material-icons">not_interested</i>
-          </a>
-        </li>
-    </ul>
-</div>
-
-`;
+let template: string = require('./queue.html');
+let styles: string = require('./queue.scss');
 
 @Component({
     template,
     selector: 'queue-component',
+    styles: [ styles ],
 })
 class QueueComponent implements OnChanges {
 
@@ -36,7 +22,13 @@ class QueueComponent implements OnChanges {
     @Output() public nextUp: EventEmitter<QueuedUpSong> = new EventEmitter<QueuedUpSong>();
 
     private queuedSongs: QueuedUpSong[];
-    constructor() {}
+    constructor() {
+        $(document).ready((): void => {
+            $('.collapsible').collapsible({
+              accordion : false,
+            });
+          });
+    }
 
     public ngOnChanges(changes: {[propName: string]: SimpleChange}): void {
         if (this.queue) {

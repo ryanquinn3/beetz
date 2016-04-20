@@ -1,0 +1,18 @@
+ .lib-table {
+    background: linear-gradient(to left, rgba(85, 189, 151, .8), rgba(0,0,0,.5));
+    height:100%;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    table {
+      margin: 5px;
+    }
+
+  }
+
+
+  th, td {
+    color: white;
+    padding: 10px 5px !important;
+  }

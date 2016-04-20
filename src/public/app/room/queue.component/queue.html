@@ -1,0 +1,19 @@
+<div class="queue--container">
+    <ul class="collapsible popout" data-collapsible="accordion">
+        <li class="avatar" *ngFor="#queuedSong of queuedSongs; #i = index">
+            <div class="collapsible-header">
+                <div class="header-content">
+                      <img [src]="queuedSong.song.artwork_url" alt="" class="circle">
+                      <span class="title">{{ queuedSong.song.title }}  </span>
+                      <a class="secondary-content"
+                         (click)="remove(i)">
+                         <i class="material-icons">not_interested</i>
+                      </a>
+                </div>
+            </div>
+            <div class="collapsible-body">
+                Song will be played after {{ i + 1 }} more
+            </div>
+        </li>
+    </ul>
+</div>

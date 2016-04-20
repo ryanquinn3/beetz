@@ -1,0 +1,23 @@
+.header-content {
+  display: flex;
+  align-items: center;
+  height: 75px;
+  align-content: space-around;
+  img {
+    width: 10%;
+    heigh: auto;
+  }
+  .title {
+    width: 80%;
+    font-size: 12px;
+    text-align: center;
+    line-height: 15px;
+  }
+  a {
+    width: 10%
+  }
+}
+
+.collapsible-body {
+  text-align: center;
+}

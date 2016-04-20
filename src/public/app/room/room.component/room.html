@@ -1,0 +1,8 @@
+<player
+    [queuedSong]="song"
+    (songFinished)="songFinished()">
+</player>
+<queue-component
+    [queue]="queue"
+    (nextUp)="nextSong($event)">
+</queue-component>

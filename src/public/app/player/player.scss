@@ -1,9 +1,28 @@
-.player-display {
-  height: 80px;
-  width: 400px;
-  font-size: 14px;
+.player-container {
+  margin: 10px;
 }
+
+.info {
+  display: flex;
+  .song-info {
+    width: 91.667%;
+    text-align: center;
+  }
+  .time-info {
+    width: 8.333%
+  }
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  margin: 15px auto;
+  a {
+    margin: auto 5px;
+  }
+}
+
 
 .pointer {
   cursor: pointer;
 }
+

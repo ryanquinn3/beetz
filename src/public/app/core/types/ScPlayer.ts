@@ -8,21 +8,21 @@ export interface ScPlayer {
     on(event: ScPlayerEvent, handler: () => void ): void;
 }
 
-export enum ScPlayerEvent {
-    StateChange = <any>'state-change',
-    Play = <any>'play',
-    PlayStart = <any>'play-start',
-    PlayResume = <any>'play-resume',
-    Pause = <any>'pause',
-    Finished = <any>'finish',
-    Seek = <any>'seek',
-    Seeked = <any>'seeked',
-    GeoBlocked = <any>'geo_blocked',
-    BufferingStart = <any>'buffering_start',
-    BufferingEnd = <any>'buffering_end',
-    AudioError = <any>'audio_error',
-    Time = <any>'time',
-    NoStreams = <any>'no_streams',
-    NoProtocol = <any>'no_protocol',
-    NoConnection = <any>'no_connection'
+export class ScPlayerEvent {
+    public static stateChange: string = 'state-change';
+    public static play: string = 'play';
+    public static playStart: string = 'play-start';
+    public static playResume: string = 'play-resume';
+    public static pause: string = 'pause';
+    public static finished: string = 'finish';
+    public static seek: string = 'seek';
+    public static seeked: string = 'seeked';
+    public static geoBlocked: string = 'geo_blocked';
+    public static bufferingStart: string = 'buffering_start';
+    public static bufferingEnd: string = 'buffering_end';
+    public static audioError: string = 'audio_error';
+    public static time: string = 'time';
+    public static noStreams: string = 'no_streams';
+    public static noProtocol: string = 'no_protocol';
+    public static noConnection: string = 'no_connection';
 }

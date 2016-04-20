@@ -1,20 +1,10 @@
 import { Component } from 'angular2/core';
-import queue from './queue.component';
-import player from '../player/player.component';
-import roomService from './room.service';
-import { Queue, QueuedUpSong } from '../core/types';
+import queue from '../queue.component';
+import player from '../../player/player.component';
+import roomService from '../room.service';
+import { Queue, QueuedUpSong } from '../../core/types';
 
-
-let template: string = `
-    <player 
-        [queuedSong]="song"
-        (songFinished)="songFinished()">
-    </player>
-    <queue-component 
-        [queue]="queue"
-        (nextUp)="nextSong($event)">    
-    </queue-component>
-`;
+let template: string = require('./room.html');
 
 @Component({
     template,
