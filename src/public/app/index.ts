@@ -1,10 +1,11 @@
 import 'jquery';
 import 'reflect-metadata';
 import 'rxjs';
-import 'zone.js';
+import 'zone.js/dist/zone';
+import 'zone.js/dist/long-stack-trace-zone';
 import 'es6-shim';
 import 'materialize-css/dist/css/materialize.css';
-import 'materialize-css/dist/js/materialize.min';
+import 'materialize-css';
 import 'rxjs/add/operator/map';
 
 declare var require: any;

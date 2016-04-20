@@ -6,7 +6,13 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "jquery/jquery.d.ts": {
-      "commit": "d969b903d1fce89a5e43828ec68458b4f852db4d"
+      "commit": "544a35a10866b32afda9c7f029c0764558563f4f"
+    },
+    "materialize-css/materialize-css.d.ts": {
+      "commit": "544a35a10866b32afda9c7f029c0764558563f4f"
+    },
+    "pickadate/pickadate.d.ts": {
+      "commit": "544a35a10866b32afda9c7f029c0764558563f4f"
     }
   }
 }

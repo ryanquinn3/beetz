@@ -10,7 +10,11 @@
     "f-test": "npm run pack-test && cat test.bundle.js | tap-closer | smokestack | tap-spec && npm run clean",
     "test": "npm run f-test",
     "postinstall": "typings install",
-    "lint": "tslint -c tslint.json src/**/*.ts"
+    "lint": "tslint -c tslint.json src/**/*.ts",
+    "watch": "npm-run-all --parallel watch:front watch:back",
+    "watch:front": "webpack --watch --progress --config webpack.front.js",
+    "watch:back": "webpack --watch --progress --config webpack.back.js",
+    "server": "nodemon build/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +28,7 @@
     "gulp": "^3.9.1",
     "node-sass": "^3.4.2",
     "nodemon": "^1.9.1",
+    "npm-run-all": "^1.7.0",
     "raw-loader": "^0.5.1",
     "riotjs-loader": "^2.0.0",
     "sass-loader": "^3.2.0",

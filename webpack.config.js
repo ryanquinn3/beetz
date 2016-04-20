@@ -16,14 +16,22 @@ var frontendConfig = {
     ],
     output: {
         path: path.join(__dirname, 'src', 'public', 'build'),
-        fileName: 'bundle.js'
+        filename: 'bundle.js'
     },
     resolve: {
         extensions: ["", ".webpack.js", ".web.js", ".js", ".ts"],
         alias: {
-            types: pathToSrc('public/app/core/types')
-        }
-    }
+            types: pathToSrc('public/app/core/types'),
+            jQuery: 'jquery/dist/jquery.js'
+        },
+        moduleDirectories: [
+            path.join(__dirname, 'node_modules'),
+            path.join(__dirname, 'src'),
+        ],
+    },
+    externals: {
+   //     'jquery': '$'
+    },
 };
 
 var backendConfig = {
