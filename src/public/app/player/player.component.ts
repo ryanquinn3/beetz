@@ -8,7 +8,7 @@ import {
     ChangeDetectorRef,
 } from 'angular2/core';
     import SoundcloudConnect from '../soundcloud/soundcloud.service';
-import { ScPlayer, QueuedUpSong, ScPlayerEvent } from '../core/types';
+import { ScPlayer, QueuedUpSong } from '../core/types';
 
 const template: string = `
 <div class="player-container">
@@ -90,28 +90,28 @@ class Player implements OnChanges {
     }
 
     private attachPlayerHandlers(player: ScPlayer): void {
-        player.on(ScPlayerEvent.Finished, () => {
+        player.on('finish', () => {
             console.log('song finished');
             this.songFinished.emit('event');
         });
-        player.on(ScPlayerEvent.Time, () => {
+        player.on('time', () => {
             this.seekTime = this.millisToTimeString(player.currentTime());
             this.cd.detectChanges();
         });
 
-        player.on(ScPlayerEvent.AudioError, () => {
+        player.on('audio_error', () => {
            console.error('Audio error occurred');
         });
 
-        player.on(ScPlayerEvent.NoConnection, () => {
+        player.on('no_connection', () => {
            console.error('No connection error');
         });
 
-        player.on(ScPlayerEvent.NoStreams, () => {
+        player.on('no_streams', () => {
            console.error('No streams error');
         });
 
-        player.on(ScPlayerEvent.NoProtocol, () => {
+        player.on('no_protocol', () => {
            console.error('No protocol error');
         });
 
