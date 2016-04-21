@@ -4,17 +4,17 @@
   height: 75px;
   align-content: space-around;
   img {
-    width: 10%;
-    heigh: auto;
+    flex: 1;
+    height: 60%;
   }
   .title {
-    width: 80%;
+    flex: 8;
     font-size: 12px;
     text-align: center;
     line-height: 15px;
   }
   a {
-    width: 10%
+    flex: 1;
   }
 }
 

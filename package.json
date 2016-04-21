@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "gulp run",
+    "start": "npm-run-all --parallel server:delay watch:front watch:back",
     "clean": "rm test.bundle.js",
     "pack-test": "webpack --quiet --config webpack.test.js test.bundle.js",
     "f-test": "npm run pack-test && cat test.bundle.js | tap-closer | smokestack | tap-spec && npm run clean",
@@ -14,7 +14,8 @@
     "watch": "npm-run-all --parallel watch:front watch:back",
     "watch:front": "webpack --watch --progress --config webpack.front.js",
     "watch:back": "webpack --watch --progress --config webpack.back.js",
-    "server": "nodemon build/app.js"
+    "server": "nodemon build/app.js",
+    "server:delay": "sleep 10 && npm run server"
   },
   "author": "",
   "license": "ISC",

@@ -1,8 +1,10 @@
+<library-menu></library-menu>
 <div class="lib-table">
     <table class="highlight">
         <thead>
           <tr>
               <th data-field="id" (click)="orderBy('title')">Track</th>
+              <th>Time</th>
               <th data-field="id" (click)="orderBy('genre')">Genre</th>
               <th data-field="name" (click)="orderBy('playback_count')">Plays</th>
               <th data-field="price" (click)="orderBy('favoritings_count')">Likes</th>
@@ -11,6 +13,7 @@
         <tbody>
           <tr *ngFor="#like of songs | orderBy: orderField" (click)="queue(like)">
             <td>{{ like.title }}</td>
+            <td>{{ formatTime(like.duration) }}</td>
             <td>{{ like.genre }}</td>
             <td>{{ like.playback_count | commaize }}</td>
             <td>{{ like.favoritings_count | commaize }}</td>

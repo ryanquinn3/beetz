@@ -5,7 +5,7 @@ export interface ScPlayer {
     currentTime(): number;
     setVolume(vol: number): void;
     getVolume(): number;
-    on(event: ScPlayerEvent, handler: () => void ): void;
+    on(event: ScPlayerEvent, handler: () => void ): ScPlayer;
 }
 
 export class ScPlayerEvent {
