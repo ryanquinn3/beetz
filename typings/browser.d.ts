@@ -8,4 +8,3 @@
 /// <reference path="browser/ambient/zone.js/index.d.ts" />
 /// <reference path="browser/definitions/es6-promise/index.d.ts" />
 /// <reference path="core/soundcloud/index.d.ts" />
-interface Window {jQuery: JQuery; $: JQuery; }
