@@ -5,4 +5,5 @@
 /// <reference path="main/ambient/node/index.d.ts" />
 /// <reference path="main/ambient/selenium-webdriver/index.d.ts" />
 /// <reference path="main/ambient/webpack/index.d.ts" />
+/// <reference path="main/ambient/zone-fix/index.d.ts" />
 /// <reference path="main/definitions/es6-promise/index.d.ts" />

@@ -1,20 +1,39 @@
 .player-container {
   margin: 10px;
+  display:flex;
 }
+
+.album {
+  flex: 3;
+}
+
+.player-info {
+  flex: 9;
+}
+
 
 .info {
   display: flex;
   .song-info {
-    width: 91.667%;
+    flex: 11;
     text-align: center;
   }
-  .time-info {
-    width: 8.333%
-  }
 }
-.controls {
+
+
+
+.top-row {
   display: flex;
-  justify-content: center;
+  align-items: center;
+}
+.time-info {
+    flex: 3;
+}
+
+.controls {
+  flex: 9;
+  display: flex;
+  justify-content: flex-start;
   margin: 15px auto;
   a {
     margin: auto 5px;

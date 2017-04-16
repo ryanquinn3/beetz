@@ -1,22 +1,29 @@
 <div class="player-container">
-    <div class="controls">
-        <a (click)="play()" class="btn-floating waves-effect waves-light teal accent-2">
-            <i class="material-icons">play_arrow</i>
-        </a>
-        <a (click)="stop()" class="btn-floating waves-effect waves-light teal accent-2">
-            <i class="material-icons">stop</i>
-        </a>
-        <a (click)="next()" class="btn-floating waves-effect waves-light teal accent-2">
-            <i class="material-icons">skip_next</i>
-        </a>
+    <audio-player></audio-player>
+    <div class="album">
+        <img *ngIf="queuedSong" [src]="queuedSong.song.artwork_url" alt="">
     </div>
-    <div class="info">
-        <div class="song-info">
-            {{ queuedSong ? queuedSong.song.title : "No song selected" }}
+    <div class="player-info">
+        <div class="top-row">
+            <div class="controls">
+                <a (click)="play()" class="btn-floating waves-effect waves-light teal accent-2">
+                    <i class="material-icons">play_arrow</i>
+                </a>
+                <a (click)="stop()" class="btn-floating waves-effect waves-light teal accent-2">
+                    <i class="material-icons">stop</i>
+                </a>
+                <a (click)="next()" class="btn-floating waves-effect waves-light teal accent-2">
+                    <i class="material-icons">skip_next</i>
+                </a>
+            </div>
+             <div class="time-info">
+                  <span *ngIf="seekTime">{{ seekTime || '--' }} / {{ duration || '--' }}</span>
+            </div>
         </div>
-        <div class="time-info">
-            {{ seekTime || '--' }}
+        <div class="info">
+            <div class="song-info">
+                {{ queuedSong ? queuedSong.song.title : "No song selected" }}
+            </div>
         </div>
     </div>
-
 </div>
